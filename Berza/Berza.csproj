@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Binance.png" />
+    <None Remove="Resources\Bitcoin.png" />
+    <None Remove="Resources\Bybit.png" />
+    <None Remove="Resources\Ethereum.png" />
+    <None Remove="Resources\Start_Dugme.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Binance.png" />
+    <Resource Include="Resources\Bitcoin.png" />
+    <Resource Include="Resources\Bybit.png" />
+    <Resource Include="Resources\Ethereum.png" />
+    <Resource Include="Resources\Start_Dugme.png" />
+  </ItemGroup>
+
+</Project>
