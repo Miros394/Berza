@@ -1,0 +1,52 @@
+﻿<Window x:Class="Berza.Podesavanja"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Berza"
+        mc:Ignorable="d"
+        Title="Podesavanja" Height="450" Width="800"
+        Background="#050D31"
+        WindowState="Maximized">
+
+    <Viewbox Stretch="Uniform">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <UniformGrid Grid.Row="1" Columns="1" Rows="1" VerticalAlignment="Center">
+
+                <Border Margin="10" Background="#0A1A4D" BorderBrush="Gold" BorderThickness="1" CornerRadius="8">
+                    <Grid Margin="15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <RadioButton Content="BTC/USDT" GroupName="ParValuta" Foreground="Gold" Margin="0,0,8,0" FontWeight="Bold" FontSize="10" VerticalAlignment="Center"/>
+                                <RadioButton Content="Iznad" GroupName="Granica" Foreground="Gold" FontWeight="Bold" FontSize="10" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton Content="ETH/USDT" GroupName="ParValuta" Foreground="Gold" Margin="0,0,8,0" FontWeight="Bold" FontSize="10" VerticalAlignment="Center"/>
+                                <RadioButton Content="Ispod" GroupName="Granica" Foreground="Gold" FontWeight="Bold" FontSize="10" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <Border Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+                            <TextBox Width="60" Height="20" FontSize="12" Text="0.00" Foreground="Black" VerticalContentAlignment="Center" Margin="5,0" Background="White"/>
+                        </Border>
+                    </Grid>
+                </Border>
+            </UniformGrid>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                <Button Content="Sačuvaj" Width="80" Height="30" Margin="10" Background="#0A1A4D" Foreground="Gold" FontWeight="Bold" BorderBrush="Gold" BorderThickness="2" FontSize="12"/>
+            </StackPanel>
+        </Grid>
+    </Viewbox>
+</Window>
