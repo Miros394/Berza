@@ -75,10 +75,6 @@
                     </StackPanel>
                 </Border>
             </UniformGrid>
-            
-            <StackPanel>
-                <TextBlock />
-            </StackPanel>
 
             <Border Grid.Row="2" Background="#0A1A4D" BorderBrush="Gold" BorderThickness="1" CornerRadius="8" Margin="120,0">
                 <StackPanel>
