@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="Berza" Height="450" Width="800"
         Background="#050D31"
-        WindowState="Maximized">
+        WindowState="Maximized"
+        Loaded="Window_Loaded">
     
     <Viewbox Stretch="Uniform">
         <Grid Margin="20">
@@ -41,11 +42,11 @@
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                             <Image Source="/Resources/Binance.png" Width="20" Height="20" Stretch="Uniform" Margin="0,0,8,0"/>
-                            <TextBlock Text="$-" Foreground="LimeGreen" FontWeight="Bold" FontSize="12"/>
+                            <TextBlock x:Name="BinanceBtc" Text="$-" Foreground="LimeGreen" FontWeight="Bold" FontSize="12"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Resources/Bybit.png" Width="20" Height="20" Stretch="Uniform" Margin="0,0,8,0"/>
-                            <TextBlock Text="$-" Foreground="LimeGreen" FontWeight="Bold" FontSize="12"/>
+                            <TextBlock x:Name="BybitBtc" Text="$-" Foreground="LimeGreen" FontWeight="Bold" FontSize="12"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -66,11 +67,11 @@
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                             <Image Source="/Resources/Binance.png" Width="20" Height="20" Stretch="Uniform" Margin="0,0,8,0"/>
-                            <TextBlock Text="$-" Foreground="LimeGreen" FontWeight="Bold" FontSize="12"/>
+                            <TextBlock x:Name="BinanceEth" Text="$-" Foreground="LimeGreen" FontWeight="Bold" FontSize="12"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Resources/Bybit.png" Width="20" Height="20" Stretch="Uniform" Margin="0,0,8,0"/>
-                            <TextBlock Text="$-" Foreground="LimeGreen" FontWeight="Bold" FontSize="12"/>
+                            <TextBlock x:Name="BybitEth" Text="$-" Foreground="LimeGreen" FontWeight="Bold" FontSize="12"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
