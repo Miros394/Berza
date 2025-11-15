@@ -38,27 +38,53 @@ namespace Berza
 
                 string? simbol = root.GetPropertyOrDefault("s") ?? root.GetPropertyOrDefault("symbol");
                 string? cena = root.GetPropertyOrDefault("p") ?? root.GetPropertyOrDefault("price");
+                string? boja = root.GetPropertyOrDefault("S") ?? root.GetPropertyOrDefault("side");
 
-                if ((simbol is null || cena is null) && root.TryGetProperty("data", out var data) && data.ValueKind == JsonValueKind.Array && data.GetArrayLength() > 0)
+                if (source == "Binance" && root.TryGetProperty("m", out var maker))
+                {
+                    bool isSell = maker.GetBoolean();
+                    boja = isSell ? "Sell" : "Buy";
+                }
+
+                if (source == "Bybit" && root.TryGetProperty("data", out var data) && data.ValueKind == JsonValueKind.Array && data.GetArrayLength() > 0)
                 {
                     var pocetni = data[0];
                     simbol ??= pocetni.GetPropertyOrDefault("s") ?? pocetni.GetPropertyOrDefault("symbol");
                     cena ??= pocetni.GetPropertyOrDefault("p") ?? pocetni.GetPropertyOrDefault("price");
+                    boja ??= pocetni.GetPropertyOrDefault("S") ?? pocetni.GetPropertyOrDefault("side");
                 }
 
-                if (simbol is null || cena is null) continue;
+                if (simbol is null || cena is null || boja is null) continue;
+
+                var color = boja.Equals("Buy", StringComparison.OrdinalIgnoreCase) ? System.Windows.Media.Brushes.LimeGreen : System.Windows.Media.Brushes.Crimson; 
 
                 Dispatcher.Invoke(() =>
                 {
                     if (simbol.Contains("BTC", StringComparison.OrdinalIgnoreCase))
                     {
-                        if (source == "Binance") BinanceBtc.Text = $"${cena}";
-                        else BybitBtc.Text = $"${cena}";
+                        if (source == "Binance")
+                        {
+                            BinanceBtc.Text = $"${cena}";
+                            BinanceBtc.Foreground = color;
+                        }
+                        else
+                        {
+                            BybitBtc.Text = $"${cena}";
+                            BybitBtc.Foreground = color;
+                        }
                     }
                     else if (simbol.Contains("ETH", StringComparison.OrdinalIgnoreCase))
                     {
-                        if (source == "Binance") BinanceEth.Text = $"${cena}";
-                        else BybitEth.Text = $"${cena}";
+                        if (source == "Binance")
+                        {
+                            BinanceEth.Text = $"${cena}";
+                            BinanceEth.Foreground = color;
+                        }
+                        else
+                        {
+                            BybitEth.Text = $"${cena}";
+                            BybitEth.Foreground = color;
+                        }
                     }
                 });
             }
