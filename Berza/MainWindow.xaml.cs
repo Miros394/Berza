@@ -10,6 +10,8 @@ namespace Berza
         private WebSocketClient binance;
         private WebSocketClient bybit;
 
+        private bool konekcija = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -17,16 +19,35 @@ namespace Berza
 
         private async void Window_Loaded(object sender, RoutedEventArgs ev)
         {
-            binance  = new WebSocketClient("wss://stream.binance.com:443/ws/btcusdt@trade/ethusdt@trade");
+            if (!konekcija)
+            {
+                binance = new WebSocketClient("wss://stream.binance.com:443/ws/btcusdt@trade/ethusdt@trade");
 
-            string bybitS = "{\"op\": \"subscribe\", \"args\": [\"publicTrade.BTCUSDT\", \"publicTrade.ETHUSDT\"]}";
-            bybit = new WebSocketClient("wss://stream.bybit.com/v5/public/spot", bybitS, Ping: true);
+                string bybitS = "{\"op\": \"subscribe\", \"args\": [\"publicTrade.BTCUSDT\", \"publicTrade.ETHUSDT\"]}";
+                bybit = new WebSocketClient("wss://stream.bybit.com/v5/public/spot", bybitS, Ping: true);
 
-            await binance.ConnectAsync();
-            await bybit.ConnectAsync();
+                await binance.ConnectAsync();
+                await bybit.ConnectAsync();
 
-            _ = Listen(binance, "Binance");
-            _ = Listen(bybit, "Bybit");
+                _ = Listen(binance, "Binance");
+                _ = Listen(bybit, "Bybit");
+
+                konekcija = true;
+                Glavno_Dugme_Slika.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Stop_Dugme.png"));
+            }
+            else 
+            {
+                await binance.DisposeAsync();
+                await bybit.DisposeAsync();
+
+                BinanceBtc.Text = "$-";
+                BinanceEth.Text = "$-";
+                BybitBtc.Text = "$-";
+                BybitEth.Text = "$-";
+
+                konekcija = false;
+                Glavno_Dugme_Slika.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Start_Dugme.png"));
+            }                
         }
 
         private async Task Listen(WebSocketClient client, string source)

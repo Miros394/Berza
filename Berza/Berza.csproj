@@ -14,6 +14,7 @@
     <None Remove="Resources\Bybit.png" />
     <None Remove="Resources\Ethereum.png" />
     <None Remove="Resources\Start_Dugme.png" />
+    <None Remove="Resources\Stop_Dugme.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +27,9 @@
     <Resource Include="Resources\Bybit.png" />
     <Resource Include="Resources\Ethereum.png" />
     <Resource Include="Resources\Start_Dugme.png" />
+    <Resource Include="Resources\Stop_Dugme.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
