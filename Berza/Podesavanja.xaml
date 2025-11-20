@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:Berza"
         mc:Ignorable="d"
         Title="Podesavanja" Height="450" Width="800"
-        Background="#050D31"
-        WindowState="Maximized">
+        Background="#050D31">
 
     <Viewbox Stretch="Uniform">
         <Grid>
@@ -28,24 +27,24 @@
 
                         <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                <RadioButton Content="BTC/USDT" GroupName="ParValuta" Foreground="Gold" Margin="0,0,8,0" FontWeight="Bold" FontSize="10" VerticalAlignment="Center"/>
-                                <RadioButton Content="Iznad" GroupName="Granica" Foreground="Gold" FontWeight="Bold" FontSize="10" VerticalAlignment="Center"/>
+                                <RadioButton x:Name="Btc" Content="BTC/USDT" GroupName="ParValuta" Foreground="Gold" Margin="0,0,8,0" FontWeight="Bold" FontSize="10" VerticalAlignment="Center"/>
+                                <RadioButton x:Name="Iznad" Content="Iznad" GroupName="Granica" Foreground="Gold" FontWeight="Bold" FontSize="10" VerticalAlignment="Center"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <RadioButton Content="ETH/USDT" GroupName="ParValuta" Foreground="Gold" Margin="0,0,8,0" FontWeight="Bold" FontSize="10" VerticalAlignment="Center"/>
-                                <RadioButton Content="Ispod" GroupName="Granica" Foreground="Gold" FontWeight="Bold" FontSize="10" VerticalAlignment="Center"/>
+                                <RadioButton x:Name="Eth"  Content="ETH/USDT" GroupName="ParValuta" Foreground="Gold" Margin="0,0,8,0" FontWeight="Bold" FontSize="10" VerticalAlignment="Center"/>
+                                <RadioButton x:Name="Ispod" Content="Ispod" GroupName="Granica" Foreground="Gold" FontWeight="Bold" FontSize="10" VerticalAlignment="Center"/>
                             </StackPanel>
                         </StackPanel>
 
                         <Border Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
-                            <TextBox Width="60" Height="20" FontSize="12" Text="0.00" Foreground="Black" VerticalContentAlignment="Center" Margin="5,0" Background="White"/>
+                            <TextBox x:Name="TB_Granica" Width="60" Height="20" FontSize="12" Text="0.00" Foreground="Black" VerticalContentAlignment="Center" Margin="5,0" Background="White"/>
                         </Border>
                     </Grid>
                 </Border>
             </UniformGrid>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
-                <Button Content="Sačuvaj" Width="80" Height="30" Margin="10" Background="#0A1A4D" Foreground="Gold" FontWeight="Bold" BorderBrush="Gold" BorderThickness="2" FontSize="12"/>
+                <Button Content="Sačuvaj" Click="Upamti" Width="80" Height="30" Margin="10" Background="#0A1A4D" Foreground="Gold" FontWeight="Bold" BorderBrush="Gold" BorderThickness="2" FontSize="12"/>
             </StackPanel>
         </Grid>
     </Viewbox>
