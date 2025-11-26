@@ -9,6 +9,7 @@ namespace Berza
         public string Par { get; private set; }
         public string Smer { get; private set; }
         public decimal? Granica { get; private set; }
+        public int X { get; private set; }
 
         public Podesavanja()
         {
@@ -16,6 +17,11 @@ namespace Berza
 
             Btc.IsChecked = true;
             Iznad.IsChecked = true;
+
+            Slajder.ValueChanged += (s, e) =>
+            {
+                X_Vrednost.Text = ((int)Slajder.Value).ToString();
+            };
         }
 
         private void Upamti(object sender, RoutedEventArgs e)
@@ -46,9 +52,10 @@ namespace Berza
                     return;
                 }
 
-                Par = Btc.IsChecked == true ? "BTC" : "ETH";
+                Par = Btc.IsChecked == true ? "BTCUSDT" : "ETHUSDT";
                 Smer = Iznad.IsChecked == true ? "Iznad" : "Ispod";
                 Granica = granica;
+                X = (int)Slajder.Value;
 
                 this.DialogResult = true;
                 this.Close();
