@@ -32,6 +32,12 @@ namespace Berza
 
         private int X_broj = 10;
 
+        private decimal btc_binance;
+        private decimal eth_binance;
+        private decimal btc_bybit;
+        private decimal eth_bybit;
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -106,8 +112,31 @@ namespace Berza
 
                 konekcija = false;
                 Glavno_Dugme_Slika.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Start_Dugme.png"));
-            }                
+            }
+
+            var tajmer = new System.Windows.Threading.DispatcherTimer();
+            tajmer.Interval = TimeSpan.FromSeconds(1);
+            tajmer.Tick += Tajmer;
+            tajmer.Start();
+
+
         }
+
+        private void Tajmer(object? sender, EventArgs e)
+        {
+            if (btc_binance > 0)
+                DodajCenu(lista_btc_binance, btc_binance);
+
+            if (eth_binance > 0)
+                DodajCenu(lista_eth_binance, eth_binance);
+
+            if (btc_bybit > 0)
+                DodajCenu(lista_btc_bybit, btc_bybit);
+
+            if (eth_bybit > 0)
+                DodajCenu(lista_eth_bybit, eth_bybit);
+        }
+
 
         private void DodajCenu(List<decimal> lista, decimal cena)
         {
@@ -157,7 +186,7 @@ namespace Berza
                 Preporuka.Foreground = Brushes.Crimson;
         }
 
-        private (string tekst, string smer, int bazniPoeni) IzracunajPreporuku(List<decimal> lista, int X_broj)
+        private (string tekst, string smer, decimal bazniPoeni) IzracunajPreporuku(List<decimal> lista, int X_broj)
         {
             if (lista.Count < X_broj || lista.Count < 60)
                 return ("Nema dovoljno podataka", "", 0);
@@ -171,12 +200,12 @@ namespace Berza
             if (prosek60 == 0)
                 return ("N/A", "", 0);
 
-            int bp = (int)(((prosekX - prosek60) / prosek60) * 10000);
+            decimal bp = (((prosekX - prosek60) / prosek60) * 10000m);
 
             string smer = bp > 0 ? "Kupovina" : "Prodaja";
             string strelica = bp > 0 ? "↑" : "↓";
 
-            string tekst = $"{strelica} {smer} (razlika: {bp} baznih poena)";
+            string tekst = $"{strelica} {smer} (razlika: {bp:F2} baznih poena)";
 
             return (tekst, smer, bp);
         }
@@ -230,18 +259,17 @@ namespace Berza
                     if (simbol.Contains("BTC", StringComparison.OrdinalIgnoreCase))
                     {
                         if (source == "Binance")
-                            DodajCenu(lista_btc_binance, c);
+                            btc_binance = c;
                         else
-                            DodajCenu(lista_btc_bybit, c);
+                            btc_bybit = c;
                     }
                     else if (simbol.Contains("ETH", StringComparison.OrdinalIgnoreCase))
                     {
                         if (source == "Binance")
-                            DodajCenu(lista_eth_binance, c);
+                            eth_binance = c;
                         else
-                            DodajCenu(lista_eth_bybit, c);
+                            eth_bybit = c;
                     }
-
 
                     var color = boja.Equals("Buy", StringComparison.OrdinalIgnoreCase) ? System.Windows.Media.Brushes.LimeGreen : System.Windows.Media.Brushes.Crimson;
 
