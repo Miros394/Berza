@@ -30,25 +30,25 @@ namespace Berza
             {
                 if (Btc.IsChecked != true && Eth.IsChecked != true)
                 {
-                    MessageBox.Show("Izaberite valutu!");
+                    Console.WriteLine("GREŠKA: Izaberite valutu!");
                     return;
                 }
 
                 if (Iznad.IsChecked != true && Ispod.IsChecked != true)
                 {
-                    MessageBox.Show("Izaberite smer granice!");
+                    Console.WriteLine("GREŠKA: Izaberite smer granice!");
                     return;
                 }
 
                 if (string.IsNullOrWhiteSpace(TB_Granica.Text))
                 {
-                    MessageBox.Show("Unesite graničnu cenu!");
+                    Console.WriteLine("GREŠKA: Izaberite smer granice!");
                     return;
                 }
 
                 if (!decimal.TryParse(TB_Granica.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal granica))
                 {
-                    MessageBox.Show("Unesite validnu cenu!");
+                    Console.WriteLine("GREŠKA: Izaberite smer granice!");
                     return;
                 }
 
@@ -62,7 +62,7 @@ namespace Berza
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Greška: {ex.Message}");
+                Console.WriteLine("GREŠKA: Izaberite smer granice!");
             }
         }
     }

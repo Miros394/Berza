@@ -37,16 +37,16 @@ namespace Berza
         private decimal btc_bybit;
         private decimal eth_bybit;
 
-
         public MainWindow()
         {
             InitializeComponent();
+            AppRegistration.RegistrationCheck();
         }
 
         private void Levi_Klik(object sender, MouseButtonEventArgs ev)
         {
             var tb = sender as TextBlock;
-            par = tb.Tag.ToString(); 
+            par = tb.Tag.ToString();
 
             BinanceBtc.FontWeight = FontWeights.Normal;
             BybitBtc.FontWeight = FontWeights.Normal;
@@ -64,7 +64,7 @@ namespace Berza
             {
                 var p = new Podesavanja();
                 bool? result = p.ShowDialog();
-        
+
                 if (result == true)
                 {
                     ne_par = p.Par;
@@ -73,12 +73,12 @@ namespace Berza
                     notifikacija = false;
                     X_broj = p.X;
 
-                    MessageBox.Show($"Notifikacija podešena!\n{ne_par} {ne_smer} ${ne_granica}");
+                    Console.WriteLine($"Notifikacija podešena!\n{ne_par} {ne_smer} ${ne_granica}");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Greška pri otvaranju podešavanja: {ex.Message}");
+                Console.WriteLine($"Greška pri otvaranju podešavanja: {ex.Message}");
             }
         }
 
@@ -100,7 +100,7 @@ namespace Berza
                 konekcija = true;
                 Glavno_Dugme_Slika.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Stop_Dugme.png"));
             }
-            else 
+            else
             {
                 await binance.DisposeAsync();
                 await bybit.DisposeAsync();
@@ -135,7 +135,11 @@ namespace Berza
 
             if (eth_bybit > 0)
                 DodajCenu(lista_eth_bybit, eth_bybit);
+
+            if (!string.IsNullOrEmpty(par))
+                PrikaziPreporuku(par);
         }
+
 
 
         private void DodajCenu(List<decimal> lista, decimal cena)
@@ -143,18 +147,21 @@ namespace Berza
             lista.Add(cena);
 
             if (lista.Count > 60)
-                lista.RemoveAt(0); 
+                lista.RemoveAt(0);
         }
 
         private decimal Prosek(List<decimal> lista)
         {
-            if (lista.Count == 0) return 0;
-            decimal suma = 0;
-
-            foreach (var v in lista)
-                suma += v;
-
-            return suma / lista.Count;
+            if (lista == null || !lista.Any())
+                return 0;
+            try
+            {
+                return lista.Average();
+            }
+            catch (InvalidOperationException)
+            {
+                return 0;
+            }
         }
 
         private void PrikaziPreporuku(string par)
@@ -214,7 +221,10 @@ namespace Berza
         {
             try
             {
-                MessageBox.Show(poruka, "Berza Notifikacija", MessageBoxButton.OK, MessageBoxImage.Information);
+                new ToastContentBuilder()
+                    .AddText("Berza Notifikacija")
+                    .AddText(poruka)
+                    .Show();
 
                 Console.WriteLine($"NOTIFIKACIJA: {poruka}");
             }
@@ -223,6 +233,8 @@ namespace Berza
                 Console.WriteLine($"Greška pri notifikaciji: {ex.Message}");
             }
         }
+
+
 
         private async Task Listen(WebSocketClient client, string source)
         {
@@ -338,7 +350,9 @@ namespace Berza
             {
                 return property.ValueKind switch
                 {
-                    JsonValueKind.String => property.GetString(), JsonValueKind.Number => property.GetRawText(), _ => null
+                    JsonValueKind.String => property.GetString(),
+                    JsonValueKind.Number => property.GetRawText(),
+                    _ => null
                 };
             }
             return null;
